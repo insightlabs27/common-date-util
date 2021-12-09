@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha"
   },
-  "author": "websiteIO",
+  "author": "InsightLabs27",
   "license": "ISC",
   "dependencies": {
     "dateformat": "^3.0.3",
