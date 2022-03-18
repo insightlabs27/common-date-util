@@ -712,7 +712,7 @@ module.exports = {
 
     /**
      * This determines if the task is within it's interval to run based on the previous
-     * run date and the settings for the task.
+     * run date and the settings for the task
      *
      * @param type - the interval type (day/minute/hour/etc...)
      * @param lastRunDate - The last run date of the task
