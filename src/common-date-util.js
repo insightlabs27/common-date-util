@@ -80,6 +80,7 @@ module.exports = {
             formattedShort8: datetime.format('h:mm a z'), // this.getDateFormattedShort( datetime )
             formattedShort9: datetime.format('h:mm a'), // this.getDateFormattedShort( datetime )
             dbFormatted: datetime.format('YYYY-MM-DD HH:mm:ss.SSS'), // this.getDateFormattedShort( datetime )
+            dbFormattedByDay: datetime.format('YYYY-MM-DD'), // this.getDateFormattedShort( datetime )
             date: datetime
         }
     },
