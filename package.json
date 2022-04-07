@@ -1,6 +1,6 @@
 {
   "name": "common-date-util",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "",
   "main": "src/common-date-util.js",
   "scripts": {
