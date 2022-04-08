@@ -279,6 +279,12 @@ describe('Test methods', function () {
 
     });
 
+    it('test dbFormattedByHour format', function(){
+        let date1  = '2020-08-23 12:29:23.081';
+        let date1Obj = dateUtil.getLocaleTimeDataObj( date1 );
+        assert.strictEqual(date1Obj.dbFormattedByHour, '2020-08-23 12:00')
+    });
+
     // it.only('Test differenceInDays', function () {
     //     let diffMins = dateUtil.differenceInMinutes('20200103.23273335', true);
     //     let diffDays = dateUtil.differenceInDays('20200103.23273335', true);
