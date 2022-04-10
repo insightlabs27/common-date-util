@@ -82,6 +82,7 @@ module.exports = {
             dbFormatted: datetime.format('YYYY-MM-DD HH:mm:ss.SSS'), // this.getDateFormattedShort( datetime )
             dbFormattedByDay: datetime.format('YYYY-MM-DD'), // this.getDateFormattedShort( datetime )
             dbFormattedByHour: datetime.format('YYYY-MM-DD HH:00'), // this.getDateFormattedShort( datetime )
+            dbFormattedByMinute: datetime.format('YYYY-MM-DD HH:mm'), // this.getDateFormattedShort( datetime )
             date: datetime
         }
     },
@@ -94,6 +95,7 @@ module.exports = {
      * @returns {*|{dd: *, mm: *, yy: *, hh: *, date: *, hhmmss: *, formattedShort: *, iso8601: *, formatted: *, formattedShort2: *, hhonly: *, formattedShort3: *, formattedShort6: *, formattedShort4: *, formattedShort5: *, hhmm: *, dayOfWeek: *, ddonly: *, mmonly: *, hhmmssms: *}}
      */
     getCurrentTimeStampObj: function(timezone){ return this.getTimeStampObj(new Date(), timezone) },
+    now:function(timezone){ return this.getCurrentTimeStampObj(timezone)},
 
     /**
      * Get the getTimeStampObj based on string value of the date. The log file and name return a formatted value
@@ -151,9 +153,7 @@ module.exports = {
     },
 
     getHourlyLogFormatByDateObj: function( dateObj, ext='.log' ){
-        return {
-            current: dateObj.yy + '/' + dateObj.mmonly + '/' + dateObj.ddonly + '/' + dateObj.hh + ext
-        }
+        return (dateObj.yy + '/' + dateObj.mmonly + '/' + dateObj.ddonly + '/' + dateObj.hh + ext)
     },
 
     /**
@@ -175,6 +175,17 @@ module.exports = {
             case '3m': return (type +' > \'' + this.getTimeStampObj(this.addMonth(new Date(), -3)).dbFormatted) + '\'';
             case 'custom': return (type + ' between \'' + this.getTimeStampObj(start).dbFormatted) + '\' and \'' + this.getTimeStampObj(end).dbFormatted + '\'';
             default: console.log('time period not defined :: ' + period); return '';
+        }
+    },
+
+    dateByFilter: function( period ){
+        switch (period) {
+            case 'previousHour': return this.getPreviousHourObj();
+            case 'currentHour': return this.now();
+            case '60min': case '60m': return this.getPreviousHourObj();
+            case '24h': return this.getPreviousDayObj();
+            case '7d': return this.getPreviousDayObj(-7);
+            case '30d': return this.getPreviousDayObj(-30);
         }
     },
 
@@ -361,13 +372,14 @@ module.exports = {
      */
     getCurrentDay: function(){ return moment.utc().startOf('day').toDate() },
 
+    getCurrentDayObj: function(){ return this.getTimeStampObj( this.getCurrentDay() ) },
+
     /**
      * Returns the beginning of the day based on the day passed in
      *
      * @returns {*}
      */
     setCurrentDay: function( day ) { return moment.utc( this.determineDate(day) ).startOf('day').toDate() },
-
     /**
      * Returns the previous of the day based on the currentDay
      *
@@ -375,6 +387,7 @@ module.exports = {
      */
     getPreviousDay: function(){ return  moment.utc().subtract(1, 'days').startOf('day').toDate() },
 
+    getPreviousDayObj: function( days=-1 ){ return this.getTimeStampObj(this.addDay(new Date(), days)) },
     /**
      * Returns the current hour of the date.
      *
@@ -382,12 +395,15 @@ module.exports = {
      */
     getCurrentHour: function(){ return moment.utc().startOf('hour').toDate() },
 
+
     /**
      * Returns the previous hour of the date.
      *
      * @returns {*}
      */
     getPreviousHour: function(){ return  moment.utc().subtract(1, 'hours').startOf('hour').toDate() },
+
+    getPreviousHourObj: function(){ return this.getTimeStampObj(this.addHour(new Date(), -1)) },
 
     /**
      * Returns the difference in days between the date passed-in and the current date.
