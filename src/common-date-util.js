@@ -140,7 +140,7 @@ module.exports = {
 
     /**
      * This method will build the current and previous log file based on the current date.
-     *
+     * -
      * @returns {{current: string, previous: string}}
      */
     getHourlyFormatTimeStamps: function( ext='.log'){
