@@ -143,7 +143,7 @@ module.exports = {
      *
      * @returns {{current: string, previous: string}}
      */
-    getHourlyLogFormatTimeStamps: function( ext='.log'){
+    getHourlyFormatTimeStamps: function( ext='.log'){
         let dateObj = this.getCurrentTimeStampObj();
         let prevDateObj = this.getTimeStampObj(this.getPreviousHour());
         return {
@@ -152,8 +152,16 @@ module.exports = {
         }
     },
 
-    getHourlyLogFormatByDateObj: function( dateObj, ext='.log' ){
+    getHourlyFormatByDateObj: function( dateObj, ext='.log' ){
         return (dateObj.yy + '/' + dateObj.mmonly + '/' + dateObj.ddonly + '/' + dateObj.hh + ext)
+    },
+
+    getDailyFormatByDateObj: function( dateObj, ext='.log' ){
+        return  dateObj.yy + '/' + dateObj.mmonly + '/' + dateObj.ddonly + '/_' + dateObj.dd + ext;
+    },
+
+    getMonthlyFormatByDateObj: function( dateObj, ext='.log' ){
+        return (dateObj.yy + '/' + dateObj.mmonly + '/_' + dateObj.mm + ext)
     },
 
     /**
