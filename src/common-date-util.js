@@ -164,6 +164,10 @@ module.exports = {
         return (dateObj.yy + '/' + dateObj.mmonly + '/_' + dateObj.mm + ext)
     },
 
+    getYearlyFormatByDateObj: function( dateObj, ext='.log' ){
+        return (dateObj.yy + '/_' + dateObj.yy + ext)
+    },
+
     /**
      * This is used for creating the database time range. for ex, date_created > 7 days or date_created is between ...
      *
