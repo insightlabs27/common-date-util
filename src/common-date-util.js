@@ -83,6 +83,7 @@ module.exports = {
             dbFormattedByDay: datetime.format('YYYY-MM-DD'), // this.getDateFormattedShort( datetime )
             dbFormattedByHour: datetime.format('YYYY-MM-DD HH:00'), // this.getDateFormattedShort( datetime )
             dbFormattedByMinute: datetime.format('YYYY-MM-DD HH:mm'), // this.getDateFormattedShort( datetime )
+            dbFormattedByTime: datetime.format('HH:mm'), // this.getDateFormattedShort( datetime )
             diffDays: function(dateObj) { return this.date.diff(dateObj.date, 'days') },
             date: datetime
         }
