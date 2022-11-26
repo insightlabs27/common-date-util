@@ -34,9 +34,6 @@ const moment = require('moment-timezone');
  *
  *  Everything on the server is stored using (getTimeStamp) UTC hhmmssms, then converted back to getTimeStampObj using this format
  *
- *
- *
- * @type {{getCurrentHourFormatted: (function(*=, *=): string), getCurrentMonthFormatted: (function(*=, *=): string), isDateValid: isDateValid, getTimeStampObj: (function(*=, *=): {dd: *, mm: *, yy: *, hh: *, date: *, hhmmss: *, formattedShort: *, iso8601: *, formatted: *, formattedShort2: *, hhonly: *, formattedShort3: *, formattedShort6: *, formattedShort4: *, formattedShort5: *, hhmm: *, dayOfWeek: *, ddonly: *, mmonly: *, hhmmssms: *}), getCurrentTimeStampObj: (function(*=): (*|{dd: *, mm: *, yy: *, hh: *, date: *, hhmmss: *, formattedShort: *, iso8601: *, formatted: *, formattedShort2: *, hhonly: *, formattedShort3: *, formattedShort6: *, formattedShort4: *, formattedShort5: *, hhmm: *, dayOfWeek: *, ddonly: *, mmonly: *, hhmmssms: *})), runWithinInterval: runWithinInterval, addSecond: (function(*=, *=): Date), dateFormat7: (function(*=, *=): string), differenceInHours: (function(*=, *): number), addMonth: (function(*=, *=): Date), getISODate: (function(): string), dateFormat5: (function(*=, *=): string), dateFormat6: (function(*=, *=): string), getCurrentYear: (function(*=): (string | moment.RelativeTimeSpecVal | any)), getCurrentDay: (function(): Date), getPreviousDay: (function(): Date), addDay: (function(*=, *=): Date), getLocaleTimeDataObj: (function(*=, *=): (*|{dd: *, mm: *, yy: *, hh: *, date: *, hhmmss: *, formattedShort: *, iso8601: *, formatted: *, formattedShort2: *, hhonly: *, formattedShort3: *, formattedShort6: *, formattedShort4: *, formattedShort5: *, hhmm: *, dayOfWeek: *, ddonly: *, mmonly: *, hhmmssms: *})), getLocaleTimeFromString: (function(*=): Date), differenceInMinutes: (function(*=, *): number), dateFormat4: (function(*=, *=): string), differenceInDate: (function(*=): string), dateFormat1: (function(*=, *=): string), dateFormat2: (function(*=, *=): string), setCurrentDay: (function(*=): Date), isIntervalOnTime: (function(*): boolean), formatScheduledDate: (function(*=): string), getCurrentHour: (function(): Date), addHour: (function(*=, *=): Date), getPreviousHour: (function(): Date), addMinute: (function(*=, *=): Date), localeTimeParts: (function(*): {yy: *, dd: string, mm: string, hh: string, sec: *, min: *, ddonly: *, mmonly: *, hhonly: *}), isEmpty: (function(*=): boolean), determineDate(*=): *, getPreviousMonth: (function(): Date), differenceBetweenInMinutes: (function(*=, *=, *): number), getCurrentDayFormatted: (function(*=, *=): string), addYear: (function(*=, *=): Date), getTimeStamp: (function(): string), addHourToCurrentTime: (function(*=): *), addMinutesToCurrentTime: (function(*=): *), isNotEmpty: (function(*=): boolean), differenceInDays: (function(*=, *): number), getCurrentMonth: (function(): Date)}}
  */
 
 
@@ -84,6 +81,7 @@ module.exports = {
             dbFormattedByHour: datetime.format('YYYY-MM-DD HH:00'), // this.getDateFormattedShort( datetime )
             dbFormattedByMinute: datetime.format('YYYY-MM-DD HH:mm'), // this.getDateFormattedShort( datetime )
             dbFormattedByTime: datetime.format('HH:mm'), // this.getDateFormattedShort( datetime )
+            epoch: Math.trunc(datetime.toDate().getTime()/1000.0 ),
             diffDays: function(dateObj) { return this.date.diff(dateObj.date, 'days') },
             date: datetime
         }
@@ -366,8 +364,6 @@ module.exports = {
     /**
      * Returns the beginning of the current month
      *
-     * @param date - Date Object
-     * @param timezone - Moment time-zone value
      * @returns {*}
      */
     getCurrentMonth: function(){ return  moment.utc().startOf('month').toDate() },
@@ -476,7 +472,7 @@ module.exports = {
      * Returns the difference in days, hours or minutes based how much time is between the current
      * date and the date passed-in.
      *
-     * @param date1 - Date Object
+     * @param date - Date Object
      * @param abbr - abbreviates time labels (for ex, d or days). defaults to true.
      * @param reverse - compares the current date with the passed-in value. defaults to true;
      * @returns {number}
@@ -546,6 +542,7 @@ module.exports = {
      * Returns the difference in milliseconds between two dates
      *
      * @param date1 - Date Object
+     * @param date2 - Date Object
      * @param reverse - compares the current date with the passed-in value.
      * @returns {number}
      */
@@ -559,6 +556,7 @@ module.exports = {
      * Returns the difference in seconds between two dates
      *
      * @param date1 - Date Object
+     * @param date2 - Date Object
      * @param reverse - compares the current date with the passed-in value.
      * @returns {number}
      */
@@ -572,6 +570,7 @@ module.exports = {
      * Returns the difference in minutes between two dates
      *
      * @param date1 - Date Object
+     * @param date2 - Date Object
      * @param reverse - compares the current date with the passed-in value.
      * @returns {number}
      */
@@ -585,6 +584,7 @@ module.exports = {
      * Returns the difference in hours between two dates
      *
      * @param date1 - Date Object
+     * @param date2 - Date Object
      * @param reverse - compares the current date with the passed-in value.
      * @returns {number}
      */
@@ -598,6 +598,7 @@ module.exports = {
      * Returns the difference in days between two dates
      *
      * @param date1 - Date Object
+     * @param date2 - Date Object
      * @param reverse - compares the current date with the passed-in value.
      * @returns {number}
      */
